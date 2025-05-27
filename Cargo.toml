@@ -8,8 +8,9 @@ license = "Unlicense/MIT"
 name = "meval"
 readme = "README.md"
 repository = "https://github.com/rekka/meval-rs"
-version = "0.2.0"
+version = "0.2.1"
 exclude = ["README.tpl", ".travis.yml"]
+edition = "2015"
 
 [dependencies]
 fnv = "1.0.5"
@@ -27,4 +28,4 @@ toml = "0.4.5"
 default = []
 
 [package.metadata.docs.rs]
-features = [ "serde" ]
+features = ["serde"]

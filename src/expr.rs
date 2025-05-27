@@ -848,6 +848,10 @@ impl<'a> Context<'a> {
         self.funcs.insert(name.into(), n_args.to_arg_guard(func));
         self
     }
+
+    fn get_var_ptr(&mut self, name: &str) -> Option<*mut f64> {
+        self.vars.get_mut(name).map(|v| v as *mut f64)
+    }
 }
 
 impl<'a> Default for Context<'a> {
@@ -1199,5 +1203,22 @@ mod tests {
             ctx.var("x", 1.).func("f", |x| x + y).func("g", |x| x + z);
             ctx.func2("g", |x, y| x + y);
         }
+    }
+
+    #[test]
+    fn test_context_get_var_ptr() {
+        let mut ctx = Context::new();
+        ctx.var("x", 1.);
+
+        let x_ptr = ctx.get_var_ptr("x").unwrap();
+        unsafe {
+            assert_eq!(*x_ptr, 1.);
+        }
+
+        unsafe {
+            *x_ptr = 2.;
+        }
+
+        assert_eq!(ctx.get_var("x").unwrap(), 2.);
     }
 }
