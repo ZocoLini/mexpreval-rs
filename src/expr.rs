@@ -849,7 +849,7 @@ impl<'a> Context<'a> {
         self
     }
 
-    fn get_var_ptr(&mut self, name: &str) -> Option<*mut f64> {
+    pub fn get_var_ptr(&mut self, name: &str) -> Option<*mut f64> {
         self.vars.get_mut(name).map(|v| v as *mut f64)
     }
 }
